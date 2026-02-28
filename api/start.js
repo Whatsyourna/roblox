@@ -6,10 +6,13 @@ module.exports = (req, res) => {
     return res.status(400).send("Missing placeId or instanceId");
   }
 
-  const url =
-    `https://www.roblox.com/games/start?placeId=${placeId}` +
+  const robloxUrl =
+    `roblox://placeId=${placeId}` +
     `&gameInstanceId=${instanceId}`;
 
-  res.writeHead(302, { Location: url });
+  res.writeHead(302, {
+    Location: robloxUrl,
+  });
+
   res.end();
 };

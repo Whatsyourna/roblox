@@ -1,14 +1,15 @@
-export default function handler(req, res) {
-  const { placeId, jobId } = req.query;
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-  if (!placeId || !jobId) {
-    return res.status(400).send("Missing placeId or jobId");
-  }
+export default function Start() {
+  const router = useRouter();
+  const { placeId, gameInstanceId } = router.query;
 
-  const robloxUrl = `roblox://placeId=${placeId}&gameInstanceId=${jobId}`;
+  useEffect(() => {
+    if (placeId && gameInstanceId) {
+      window.location.href = `roblox://placeId=${placeId}&gameInstanceId=${gameInstanceId}`;
+    }
+  }, [placeId, gameInstanceId]);
 
-  res.writeHead(302, {
-    Location: robloxUrl,
-  });
-  res.end();
+  return <p>Connecting to server...</p>;
 }

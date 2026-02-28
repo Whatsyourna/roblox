@@ -1,13 +1,14 @@
 export default function handler(req, res) {
-  const { placeId, gameInstanceId } = req.query;
+  const { placeId, jobId } = req.query;
 
-  if (!placeId || !gameInstanceId) {
-    return res.status(400).send("Missing placeId or gameInstanceId");
+  if (!placeId || !jobId) {
+    return res.status(400).send("Missing placeId or jobId");
   }
 
-  const robloxUrl = `https://www.roblox.com/games/start?placeId=${placeId}&gameInstanceId=${gameInstanceId}`;
+  const robloxUrl = `roblox://placeId=${placeId}&gameInstanceId=${jobId}`;
 
-  // redirect
-  res.writeHead(302, { Location: robloxUrl });
+  res.writeHead(302, {
+    Location: robloxUrl,
+  });
   res.end();
 }

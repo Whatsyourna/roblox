@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+module.exports = (req, res) => {
+  const placeId = req.query?.placeId;
+  const instanceId = req.query?.instanceId;
 
-export default function Start() {
-  const router = useRouter();
-  const { placeId, gameInstanceId } = router.query;
+  if (!placeId || !instanceId) {
+    return res.status(400).send("Missing placeId or instanceId");
+  }
 
-  useEffect(() => {
-    if (placeId && gameInstanceId) {
-      window.location.href = `roblox://placeId=${placeId}&gameInstanceId=${gameInstanceId}`;
-    }
-  }, [placeId, gameInstanceId]);
+  const url =
+    `https://www.roblox.com/games/start?placeId=${placeId}` +
+    `&gameInstanceId=${instanceId}`;
 
-  return <p>Connecting to server...</p>;
-}
+  res.writeHead(302, { Location: url });
+  res.end();
+};

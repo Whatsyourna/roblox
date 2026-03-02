@@ -1,18 +1,11 @@
-module.exports = (req, res) => {
-  const placeId = req.query?.placeId;
-  const instanceId = req.query?.instanceId;
+// skkibfi
+export default async function handler(req, res) {
+    const { placeId, instanceId } = req.query;
+    
+    if (!placeId || !instanceId) {
+        return res.status(400).send('Missing parameters');
+    }
 
-  if (!placeId || !instanceId) {
-    return res.status(400).send("Missing placeId or instanceId");
-  }
-
-  const robloxUrl =
-    `roblox://placeId=${placeId}` +
-    `&gameInstanceId=${instanceId}`;
-
-  res.writeHead(302, {
-    Location: robloxUrl,
-  });
-
-  res.end();
-};
+    // boy
+    res.redirect(302, `roblox://placeId=${placeId}&gameInstanceId=${instanceId}`);
+}

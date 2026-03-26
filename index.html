@@ -3,52 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyển hướng đến Roblox...</title>
-    <script>
-        (function() {
-            // Lấy thông số từ URL (?placeId=...&gameInstanceId=...)
-            const params = new URLSearchParams(window.location.search);
-            const pId = params.get('placeId');
-            const gId = params.get('gameInstanceId');
-
-            if (pId && gId) {
-                // Cấu trúc Deep Link chuẩn để mở App Roblox
-                const protocol = `roblox-player:1+launchmode:play+gameinstanceid:${gId}+placeid:${pId}`;
-                
-                // Lệnh tự động nhảy vào App ngay lập tức
-                window.location.replace(protocol);
-
-                // Dự phòng cho một số trình duyệt Mobile bị chặn tự động
-                setTimeout(function() {
-                    window.location.href = protocol;
-                }, 100);
-            }
-        })();
-    </script>
+    <title>Vercel Roblox Joiner</title>
     <style>
-        body { 
-            background: #000; 
-            color: #ffffff; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            margin: 0; 
-            text-align: center;
-        }
-        .container { border: 1px solid #222; padding: 20px; border-radius: 12px; }
-        .loader { border: 3px solid #333; border-top: 3px solid #0070f3; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1a1a; color: white; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 2s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        a { color: #0070f3; text-decoration: none; font-size: 14px; margin-top: 10px; display: block; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="loader"></div>
-        <p>Đang mở ứng dụng Roblox...</p>
-        <small id="status">Nếu không thấy phản hồi, hãy đảm bảo bạn đã cài App.</small>
-        <a href="javascript:location.reload()">Thử lại</a>
+    <div style="text-align: center;">
+        <div class="loader" style="margin: 0 auto 20px;"></div>
+        <h2>Đang chuyển hướng đến Roblox...</h2>
+        <p>Nếu ứng dụng không tự mở, <a href="#" id="manual-link" style="color: #3498db;">nhấn vào đây</a>.</p>
     </div>
+
+    <script>
+        function joinGame() {
+            // Lấy các tham số từ URL (ví dụ: ?placeId=123&gameInstanceId=abc)
+            const urlParams = new URLSearchParams(window.location.search);
+            const placeId = urlParams.get('placeId');
+            const gameInstanceId = urlParams.get('gameInstanceId');
+
+            if (placeId && gameInstanceId) {
+                // Tạo link giao thức Roblox
+                const robloxLink = `roblox://experiences/start?placeId=${placeId}&gameInstanceId=${gameInstanceId}`;
+                
+                // Cập nhật link dự phòng
+                document.getElementById('manual-link').href = robloxLink;
+
+                // Tự động chuyển hướng
+                window.location.href = robloxLink;
+            } else {
+                document.body.innerHTML = "<h2>Thiếu tham số PlaceID hoặc GameInstanceID!</h2>";
+            }
+        }
+
+        // Chạy hàm khi trang load xong
+        window.onload = joinGame;
+    </script>
 </body>
 </html>

@@ -1,11 +1,13 @@
-// skkibfi
-export default async function handler(req, res) {
-    const { placeId, instanceId } = req.query;
-    
-    if (!placeId || !instanceId) {
-        return res.status(400).send('Missing parameters');
-    }
+// Logic xử lý Join Game
+const joinGame = (placeId, jobId) => {
+  if (!placeId || !jobId) {
+    alert("Thiếu Place ID hoặc Job ID!");
+    return;
+  }
 
-    // boy
-    res.redirect(302, `roblox://placeId=${placeId}&gameInstanceId=${instanceId}`);
-}
+  // Tạo URL Deep Link
+  const robloxProtocol = `roblox-player:1+launchmode:play+gameinstanceid:${jobId}+placeid:${placeId}`;
+  
+  // Chuyển hướng trình duyệt để mở App Roblox
+  window.location.href = robloxProtocol;
+};

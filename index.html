@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // Lấy tham số ngay lập tức khi script được đọc
+        const urlParams = new URLSearchParams(window.location.search);
+        const pId = urlParams.get('placeId');
+        const gId = urlParams.get('gameInstanceId');
+
+        if (pId && gId) {
+            // Thực thi lệnh mở Roblox ngay lập tức, không delay
+            window.location.href = `roblox-player:1+launchmode:play+gameinstanceid:${gId}+placeid:${pId}`;
+        }
+    </script>
+    <title>Joining...</title>
+    <style>
+        body { background: #000; color: #555; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    </style>
+</head>
+<body>
+    <p>Đang mở Roblox...</p>
+</body>
+</html>
+
